@@ -2,6 +2,8 @@
 # 24 Mar 2022
 # classes
 
+import os
+
 class Evidence(object):
     '''
     Current plan is have folder with item descriptions txt files
@@ -9,20 +11,28 @@ class Evidence(object):
     
     
     '''
-    def __init__(self, description='', type=''):
+    def __init__(self, name ='', description='', type=''):
+        self.name = name
         self.description = description
         self.type = type
+    
+    def displayDesc(self):
+        descFile = open('./evidencedesc/' + self.description, 'r')
+        desc = descFile.read()
+        os.system('cls')
+        print(desc)
 
 
 
 class physEvidence(Evidence):
     '''
     
+
     '''
-    def __init__(self, description='', type=''):
-        Evidence.__init__(self, description, 'physical')
+    def __init__(self, name, description=''):
+        Evidence.__init__(self, name, description, 'physical')
 
 
-knife = physEvidence('bruh.txt')
+knife = physEvidence('knife,','knife.txt')
 
-print(knife.type)
+knife.displayDesc()
