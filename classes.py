@@ -21,6 +21,7 @@ class Evidence(object):
         desc = descFile.read()
         os.system('cls')
         print(desc)
+        descFile.close()
 
 
 
@@ -31,6 +32,22 @@ class physEvidence(Evidence):
     '''
     def __init__(self, name, description=''):
         Evidence.__init__(self, name, description, 'physical')
+
+class photoEvidence(Evidence):
+    '''
+    
+
+    '''
+    def __init__(self, name, description=''):
+        Evidence.__init__(self, name, description, 'photo')
+
+class testimonialEvidence(Evidence):
+    '''
+    
+
+    '''
+    def __init__(self, name, description=''):
+        Evidence.__init__(self, name, description, 'testimony')
 
 
 knife = physEvidence('knife,','knife.txt')
