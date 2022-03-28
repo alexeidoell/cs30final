@@ -3,16 +3,23 @@
 # AP CSP 30 Final Project
 
 import os
+import PIL
+import matplotlib.pyplot as plt
 import evidence
 import dialogue
-import matplotlib.pyplot as plt
-import PIL
 
-img = PIL.Image.open('sus.jpg')
 
-plt.imshow(img)
-plt.ion()
-dialogue.dialoguePrint('bruh', ('chief', 'audhawhduihduwia'))
-plt.show()
+testLocation = ['Kitchen', ['Eat mcdonal', 'weaash hand', 'check cutlery', 'kill salah']]
+def choices(location):
+    
+    #location could be list with attributes of the location (choices available, name of file for image, etc.)
+    choice = False
+    while choice == False:
+        print('1 - Check Location')
+        for i in range(len(location[1])):
+            print(str(i + 2) + ' - ' + location[1][i])
+        choice = dialogue.choice(len(location[1]) + 2)
 
-#dialogue.dialoguePrint('bruh', ('chief', 'audhawhduihduwia'))
+    return choice
+    
+choices(testLocation)

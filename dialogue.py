@@ -28,16 +28,13 @@ def dialoguePrint(name, dialogueList):
 
 
 
-def choice(name, question, options):
+def choice(options):
 
 
     #infinite loop, until it gets to a point where the function returns a value
     while True:
 
 
-        #once again prints name, then line, and asks for input with an empty input line
-        print(name)
-        print(question)
         userChoice = input('')
 
 
@@ -48,5 +45,5 @@ def choice(name, question, options):
                 return userChoice
         except ValueError:
             os.system('cls')
-        else:
-            os.system('cls')
+        os.system('cls')
+        return False
