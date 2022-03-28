@@ -7,9 +7,6 @@ import os
 class Evidence(object):
     '''
     Current plan is have folder with item descriptions txt files
-
-    
-    
     '''
     def __init__(self, name ='', description='', type=''):
         self.name = name
@@ -27,29 +24,23 @@ class Evidence(object):
 
 class physEvidence(Evidence):
     '''
-    
 
     '''
     def __init__(self, name, description=''):
         Evidence.__init__(self, name, description, 'physical')
 
+
 class photoEvidence(Evidence):
     '''
-    
 
     '''
     def __init__(self, name, description=''):
         Evidence.__init__(self, name, description, 'photo')
 
+
 class testimonialEvidence(Evidence):
     '''
-    
 
     '''
     def __init__(self, name, description=''):
         Evidence.__init__(self, name, description, 'testimony')
-
-
-knife = physEvidence('knife,','knife.txt')
-
-knife.displayDesc()
