@@ -8,39 +8,36 @@ class Evidence(object):
     '''
     Current plan is have folder with item descriptions txt files
     '''
-    def __init__(self, name ='', description='', type=''):
+    def __init__(self, name ='', type=''):
         self.name = name
-        self.description = description
         self.type = type
     
     def displayDesc(self):
-        descFile = open('./evidencedesc/' + self.description, 'r')
+        descFile = open('./evidencedesc/' + self.name + '.txt', 'r')
         desc = descFile.read()
-        os.system('cls')
         print(desc)
         descFile.close()
 
 
 
-class physEvidence(Evidence):
+class trueEvidence(Evidence):
     '''
 
     '''
-    def __init__(self, name, description=''):
-        Evidence.__init__(self, name, description, 'physical')
+    def __init__(self, name=''):
+        Evidence.__init__(self, name, 'true')
 
 
-class photoEvidence(Evidence):
+class falseEvidence(Evidence):
     '''
 
     '''
-    def __init__(self, name, description=''):
-        Evidence.__init__(self, name, description, 'photo')
+    def __init__(self, name=''):
+        Evidence.__init__(self, name, 'false')
 
-
-class testimonialEvidence(Evidence):
+class normalEvidence(Evidence):
     '''
 
     '''
-    def __init__(self, name, description=''):
-        Evidence.__init__(self, name, description, 'testimony')
+    def __init__(self, name=''):
+        Evidence.__init__(self, name, 'normal')
