@@ -3,6 +3,7 @@
 # AP CSP 30 Final Project
 
 import os
+from re import L
 import PIL
 import matplotlib.pyplot as plt
 import time
@@ -11,11 +12,14 @@ import dialogue
 import pickle
 
 playerStats = {'location' : 'kitchen', 'inventory' : []}
+fork = evidence.trueEvidence('Fork')
+bruh = evidence.trueEvidence('Bruh')
+playerStats['inventory'].extend([fork, bruh])
 
 
 def checkInv():
-    # for later B)
-    pass
+    for i in range(len(playerStats['inventory'])):
+        print(str(i + 1) + ' - ' + playerStats['inventory'][i].name)
 
 '''
 def saveGame():
@@ -98,3 +102,4 @@ def kitchen():
             i.displayDesc()
     
 #kitchen()
+checkInv()
