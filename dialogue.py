@@ -41,7 +41,7 @@ def choice(options):
         #as with dialogue(), it always clears after an input. if the input is valid it will return the answer and break the loop, or it will restart and re ask the question
         try:
             userChoice = int(userChoice)
-            if userChoice < options and userChoice > 0:
+            if userChoice <= options and userChoice > 0:
                 return userChoice
         except ValueError:
             os.system('cls')

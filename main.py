@@ -3,7 +3,6 @@
 # AP CSP 30 Final Project
 
 import os
-from re import L
 import PIL
 import matplotlib.pyplot as plt
 import time
@@ -18,8 +17,15 @@ playerStats['inventory'].extend([fork, bruh])
 
 
 def checkInv():
-    for i in range(len(playerStats['inventory'])):
-        print(str(i + 1) + ' - ' + playerStats['inventory'][i].name)
+    choice = False
+    while choice == False:
+        for i in range(len(playerStats['inventory'])):
+            print(str(i + 1) + ' - ' + playerStats['inventory'][i].name)
+        print(str(i + 2) + ' - Go Back to Exploring')
+        choice = dialogue.choice(len(playerStats['inventory']) + 2)
+    if choice != i + 2:
+        playerStats['inventory'][choice - 1].displayDesc()
+        choice = False
 
 '''
 def saveGame():
@@ -84,7 +90,7 @@ def choices(location):
         for i in range(len(location[1])):
             print(str(i + 3) + ' - ' + location[1][i])
         print(str(i + 4) + ' - Leave the area')
-        choice = dialogue.choice(len(location[1]) + 3)
+        choice = dialogue.choice(len(location[1]) + 2)
 
     return int(choice)
     
