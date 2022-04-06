@@ -42,5 +42,4 @@ def choice(options):
                 return userChoice
         except ValueError:
             os.system('cls')
-        os.system('cls')
         return False
