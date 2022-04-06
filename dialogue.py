@@ -8,15 +8,12 @@ import os
 #clear screen at beginning to get rid of any unneccessary things for user
 os.system('cls')
 
-def dialoguePrint(name, dialogueList):
+def dialoguePrint(dialogueList):
+    os.system('cls')
 
 
     # dialogue is stored in tuples. in order to play out the scene, it iterates through the list of lines
     for i in dialogueList:
-
-
-        #prints name of character on each line to make clearing simple
-        print(name)
 
 
         #prints line

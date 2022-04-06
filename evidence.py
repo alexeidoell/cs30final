@@ -3,6 +3,7 @@
 # classes
 
 import os
+import dialogue
 
 class Evidence(object):
     '''
@@ -11,14 +12,14 @@ class Evidence(object):
     def __init__(self, name ='', type=''):
         self.name = name
         self.type = type
+        self.desc = open('./evidencedesc/' + self.name + '.txt', 'r')
+        self.desc.close
     
     def displayDesc(self):
-        descFile = open('./evidencedesc/' + self.name + '.txt', 'r')
-        desc = descFile.read()
-        print(desc)
-        descFile.close()
-
-
+        desc = self.desc.readlines()
+        for i in range(len(desc)):
+            desc[i] = desc[i].rstrip('\n')
+        dialogue.dialoguePrint(desc)
 
 class trueEvidence(Evidence):
     '''
@@ -26,14 +27,6 @@ class trueEvidence(Evidence):
     '''
     def __init__(self, name=''):
         Evidence.__init__(self, name, 'true')
-
-
-class falseEvidence(Evidence):
-    '''
-
-    '''
-    def __init__(self, name=''):
-        Evidence.__init__(self, name, 'false')
 
 class normalEvidence(Evidence):
     '''
