@@ -1,22 +1,29 @@
 # Alexei Doell and Salahuddin Yunus
-# 04 Apr 2022
+# 5 Apr 2022
 # AP CSP 30 Final Project
 
 import os
 import PIL
 import matplotlib.pyplot as plt
-import pickle
+import json
+import jsonpickle
 import evidence
 import dialogue
 
 
 playerStats = {'location' : 'kitchen', 'inventory' : []}
+'''
 fork = evidence.trueEvidence('Fork')
 wife = evidence.normalEvidence('Wife\'s Body')
-window = evidence.trueEvidence('Broken Window')
-wife2 = evidence.trueEvidence('Closer examination of wife')
-window2 = evidence.normalEvidence('Opened Window')
-
+brokenWindow = evidence.trueEvidence('Broken Window')
+wife2 = evidence.trueEvidence('Closer Examination of Wife')
+openWindow = evidence.normalEvidence('Opened Window')
+footprints = evidence.trueEvidence("Footprints In Bathroom")
+openWindow2 = evidence.trueEvidence('Revelation of Opened Window')
+shoes = evidence.trueEvidence("Spiffy Pair of Ferragamo Plain Toe Oxfords")
+with open('savefile.txt') as f:
+    playerStats = jsonpickle.decode(json.load(f))
+'''
 def sort(initialList):
     mid = len(initialList) // 2
     leftList = initialList[:mid]
@@ -77,12 +84,9 @@ def checkInv():
 
 
 def saveGame():
+    save = jsonpickle.encode(playerStats)
     with open('savefile.txt', 'w') as f:
-       pickle.dump(playerStats, f)
-
-def loadGame():
-    with open('savefile.txt') as f:
-        playerStats = pickle.load(f)
+       json.dump(save, f)
 
 
 def choices(location):
@@ -91,8 +95,8 @@ def choices(location):
     while choice == False:
         print('1 - Check Location')
         print('2 - Check Inventory')
-        print('3 - Leave the area')
-        print('4 - Write in your journal')
+        print('3 - Leave The Area')
+        print('4 - Write In Your Journal')
         for i in range(len(location[1])):
             print(str(i + 5) + ' - ' + location[1][i])
         choice = dialogue.choice(len(location[1]) + 5)
@@ -101,8 +105,10 @@ def choices(location):
     
 
 def kitchen():
-    kitchen = ["Kitchen", ["Analyze Body", "Investigate Blood Dripping from LG Smart Refrigerator", "Inspect Broken Window", "Check Leaky Faucet", "Search Opened Drawer"]]
-    while True:
+    kitchen = ["Kitchen", ["Analyze Body", "Investigate Blood Dripping From LG Smart Refrigerator", "Inspect Broken Window", "Check Leaky Faucet", "Search Opened Drawer"]]
+    locationLoop = True
+    while locationLoop == True:
+        print(kitchen[0])
         option = choices(kitchen)
         if option == 1:
             location = PIL.Image.open('.\kitchen.png')
@@ -110,6 +116,11 @@ def kitchen():
             plt.show()
         if option == 2:
             checkInv()
+        if option == 3:
+            locationLoop = False
+        if option == 4:
+            dialogue.dialoguePrint(('You write your thoughts down in your journal.',))
+            saveGame()
         if option == 5:
             if fork not in playerStats['inventory']:
                 dialogue.dialoguePrint(('Your wife\'s dead body.', 'Killed within the last 10 minutes.', 'Her eye... where is it?'))
@@ -120,26 +131,26 @@ def kitchen():
                 dialogue.dialoguePrint(('Wait, I forgot to look at her chest.', 'What\'s all this blood?', 'A bullet hole from behind...', 'No conflict.', 'Looks like a murder...'))
                 playerStats['inventory'].append(wife2)
         if option == 6:
-            dialogue.dialoguePrint(('This fridge looks so gruesome.', 'What could these people have hidden in here to scare me.', 'Oh...', 'It\'s pomegranate juice.'))
+            dialogue.dialoguePrint(('This fridge looks so gruesome.', 'What could these people have hidden in here to scare me?', 'Oh...', 'It\'s pomegranate juice.'))
         if option == 7:
             dialogue.dialoguePrint(('The window is broken, but from the outside.', 'Looks like a burglary turned wrong.'))
-            if window not in playerStats['inventory']:
-                playerStats['inventory'].append(window)
+            if brokenWindow not in playerStats['inventory']:
+                playerStats['inventory'].append(brokenWindow)
         if option == 8:
             dialogue.dialoguePrint(('He left the water on?', 'Nothing special.'))
         if option == 9:
-            dialogue
+            dialogue.dialoguePrint(('Nothing missing from our cutlery except a fork.',))
         if option == 10:
             dialogue.dialoguePrint(('Your wife\'s eye is stuck on a fork.', 'Looks like it was gouged out.', 'Doesn\'t seem like that was what killed her though.'))
             if fork not in playerStats['inventory']:
-                playerStats['inventory'].append(fork)
-            
+                playerStats['inventory'].append(fork)        
         os.system('cls')
 
 
 def livingRoom():
     livingRoom = ["Living Room", ["Check TV", "Look Under Couch", "Search Fireplace", "Investigate Mysterious Pyramid"]]
     while True:
+        print(livingRoom[0])
         option = choices(livingRoom)
         if option == 1:
             location = PIL.Image.open('.\livingRoom.png')
@@ -156,8 +167,9 @@ def livingRoom():
 
 
 def bathroom():
-    bathroom = ["Bathroom", ["Check Opened Window", "Analyze Footprints", "Inspect Toilet"]]
+    bathroom = ["Bathroom", ["Analyze Opened Window", "Investigate Shoes in Bathtub", "Inspect Toilet"]]
     while True:
+        print(bathroom[0])
         option = choices(bathroom)
         if option == 1:
             location = PIL.Image.open('./bathroom.png')
@@ -169,17 +181,37 @@ def bathroom():
             if footprints not in playerStats['inventory']:
                 dialogue.dialoguePrint(("", "", ""))
                 if footprints not in playerStats['inventory']:
-                    playerStats['inventory'].append(window2)
+                    playerStats['inventory'].append(openWindow)
             else:
                 dialogue.dialoguePrint(("", "", ""))
-                playerStats['inventory'].append(wife2)
+                playerStats['inventory'].append(openWindow2)
         if option == 6:
-            pass
+            dialogue.dialoguePrint(("There's a pair of Ferragamo Plain Toe Oxfords laying in the bathtub...", "Immaculately placed."))
+            if shoes not in playerStats['inventory']:
+                playerStats['inventory'].append(shoes)
         if option == 7:
-            pass
+            dialogue.dialoguePrint(("Someone forgot to flush lol!"))
             
         os.system('cls')
 
+def chooseLoc():
+    locations = ('kitchen', 'bathroom', 'living Room')
+    print('Where would you like to move to?')
+    for i in range(len(locations)):
+        print(str(i + 1) + ' - ' + locations[i].capitalize())
+    playerStats['location'] = locations[dialogue.choice(len(locations) - 1)]
 
+def gameState():
+    while True:
+        if playerStats['location'] == 'kitchen':
+            kitchen()
+            chooseLoc()
+        if playerStats['location'] == 'bathroom':
+            bathroom()
+            chooseLoc()
+        if playerStats['location'] == 'living room':
+            livingRoom()
+            chooseLoc()
+        os.system('cls')
 
-kitchen()
+gameState()

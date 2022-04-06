@@ -1,6 +1,6 @@
 # Alexei and Salahuddin
-# 4 Apr 2022
-# classes
+# 5 Apr 2022
+# AP CSP 30 Final Project
 
 import os
 import dialogue
