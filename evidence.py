@@ -1,5 +1,5 @@
 # Alexei and Salahuddin
-# 5 Apr 2022
+# 6 Apr 2022
 # AP CSP 30 Final Project
 
 import os
@@ -14,12 +14,20 @@ class Evidence(object):
         self.type = type
         self.desc = open('./evidencedesc/' + self.name + '.txt', 'r')
         self.desc.close
-    
+
+
     def displayDesc(self):
         desc = self.desc.readlines()
         for i in range(len(desc)):
             desc[i] = desc[i].rstrip('\n')
         dialogue.dialoguePrint(desc)
+
+    def __eq__(self, other): 
+        if not isinstance(other, Evidence):
+            # don't attempt to compare against unrelated types
+            return NotImplemented
+
+        return self.name == other.name and self.type == other.type and self.desc == self.desc
 
 class trueEvidence(Evidence):
     '''

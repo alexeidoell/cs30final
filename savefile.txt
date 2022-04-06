@@ -1,0 +1,1 @@
+"{\"location\": \"kitchen\", \"inventory\": [{\"py/object\": \"evidence.normalEvidence\", \"name\": \"Wife's Body\", \"type\": \"normal\", \"desc\": null}]}"
