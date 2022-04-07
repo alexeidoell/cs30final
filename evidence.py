@@ -12,7 +12,8 @@ class Evidence(object):
     def __init__(self, name ='', type=''):
         self.name = name
         self.type = type
-        self.desc = open('./evidencedesc/' + self.name + '.txt', 'r').readlines()
+        with open('./evidencedesc/' + self.name + '.txt', 'r') as f:
+            self.desc = f.readlines()
 
 
     def displayDesc(self):
