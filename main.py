@@ -67,27 +67,27 @@ def binarySearch(name, sortedList):
             high = mid - 1
         elif sortedList[mid].name.lower() < name.lower():
             low = mid + 1
-    return False
+    return None
 
 def checkClues():
     os.system('cls')
-    choice = False
+    choice = None
     if len(playerStats['inventory']) == 0:
         dialogue.dialoguePrint(('You are clueless.',))
         return
     playerStats['inventory'] = sort(playerStats['inventory'])
-    while choice == False:
+    while choice == None:
         for i in range(len(playerStats['inventory'])):
             print(str(i + 1) + ' - ' + playerStats['inventory'][i].name)
         print((i + 2),'- Go Back to Exploring')
         choice = input('Please enter name of clue or choose to return to exploring. \n')
-    if choice != str(i + 2):
-        clueIndex = binarySearch(choice, playerStats['inventory'])
-        if clueIndex != False:
-            playerStats['inventory'][clueIndex].displayDesc()
-            choice = False
-        else:
-            dialogue.dialoguePrint(('Invalid clue name',))
+        if choice != str(i + 2):
+            clueIndex = binarySearch(choice, playerStats['inventory'])
+            if clueIndex != None:
+                playerStats['inventory'][clueIndex].displayDesc()
+            else:
+                dialogue.dialoguePrint(('Invalid clue name',))
+            choice = None
 
 """
 def checkClues():
@@ -137,6 +137,8 @@ def kitchen():
     kitchen = ["Kitchen", ["Analyze Body", "Investigate Blood Dripping From LG Smart Refrigerator", "Inspect Broken Window", "Check Leaky Faucet", "Search Opened Drawer"]]
     locationLoop = True
     while locationLoop == True:
+        if wife in playerStats['inventory'] and 'Check Fork' not in kitchen[1]:
+            kitchen[1].append('Check Fork')
         os.system('cls')
         print(kitchen[0])
         option = choices(kitchen)
@@ -167,7 +169,6 @@ def kitchen():
                 dialogue.dialoguePrint(('Your wife\'s dead body.', 'Killed within the last 10 minutes.', 'Her eye... where is it?', 'Jesus...', 'It\'s been stabbed with a fork...'))
                 if wife not in playerStats['inventory']:
                     playerStats['inventory'].append(wife)
-                    kitchen[1].append('Check Fork')
             else:
                 dialogue.dialoguePrint(('Wait, I forgot to look at her chest.', 'What\'s all this blood?', 'A bullet hole from behind...', 'No conflict.', 'Looks like a murder...'))
                 if wife2 not in playerStats['inventory']:
@@ -286,5 +287,5 @@ def gameState():
             livingRoom()
             chooseLoc()
 
-#gameState()
-checkClues()
+gameState()
+#checkClues()

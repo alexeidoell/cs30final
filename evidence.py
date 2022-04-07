@@ -12,15 +12,13 @@ class Evidence(object):
     def __init__(self, name ='', type=''):
         self.name = name
         self.type = type
-        self.desc = open('./evidencedesc/' + self.name + '.txt', 'r')
-        self.desc.close
+        self.desc = open('./evidencedesc/' + self.name + '.txt', 'r').readlines()
 
 
     def displayDesc(self):
-        desc = self.desc.readlines()
-        for i in range(len(desc)):
-            desc[i] = desc[i].rstrip('\n')
-        dialogue.dialoguePrint(desc)
+        for i in range(len(self.desc)):
+            self.desc[i] = self.desc[i].rstrip('\n')
+        dialogue.dialoguePrint(self.desc)
 
     def __eq__(self, other): 
         if not isinstance(other, Evidence):
