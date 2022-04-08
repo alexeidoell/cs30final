@@ -1,17 +1,17 @@
 # Alexei Doell and Salahuddin Yunus
-# 6 Apr 2022
+# 8 Apr 2022
 # AP CSP 30 Final Project
 
 import os
 import PIL
 import matplotlib.pyplot as plt
 import json
+
+from numpy import save
 import jsonpickle
 import evidence
 import dialogue
 
-
-playerStats = {'location' : 'kitchen', 'inventory' : []}
 
 fork = evidence.trueEvidence('Fork')
 wife = evidence.normalEvidence('Wife\'s Body')
@@ -22,10 +22,11 @@ footprints = evidence.trueEvidence("Footprints In Bathroom")
 openWindow2 = evidence.trueEvidence('Revelation of Opened Window')
 shoes = evidence.normalEvidence("Spiffy Pair of Ferragamo Plain Toe Oxfords")
 poop = evidence.normalEvidence("Toilet Visit Remnants")
+
+playerStats = {'location' : 'kitchen', 'inventory' : []}
 if os.path.isfile('savefile.txt') and os.path.getsize('savefile.txt') > 0:
     with open('savefile.txt') as f:
         playerStats = jsonpickle.decode(json.load(f))
-
 
 def sort(initialList):
     mid = len(initialList) // 2
@@ -69,6 +70,7 @@ def binarySearch(name, sortedList):
             low = mid + 1
     return None
 
+
 def checkClues():
     os.system('cls')
     choice = None
@@ -107,10 +109,12 @@ def checkClues():
         choice = False
 """
 
+
 def saveGame():
     save = jsonpickle.encode(playerStats)
     with open('savefile.txt', 'w') as f:
        json.dump(save, f)
+
 
 def clearSave():
     if os.path.isfile('savefile.txt'):
@@ -125,13 +129,49 @@ def choices(location):
     print('2 - Check Clues')
     print('3 - Leave The Area')
     print('4 - Write In Your Journal (Save)')
-    print('5 - Take A Break (Quit Game)')
+    print('5 - Take A Break (Quit)')
     for i in range(len(location[1])):
         print(str(i + 6) + ' - ' + location[1][i])
     choice = dialogue.choice(len(location[1]) + 6)
 
     return choice
     
+
+def titleScreen():
+    print("TITLE\n")
+    if os.path.isfile('savefile.txt'):
+        print("1 - New Game")
+        print("2 - Load Game")
+        print("3 - Quit")
+        userChoice = dialogue.choice(3)
+        if userChoice == 1:
+            os.system('cls')
+            clearSave()
+            playerStats['location'] = 'kitchen'
+            playerStats['inventory'].clear()
+            prologue()
+        elif userChoice == 2:
+            os.system('cls')
+            gameState()
+        elif userChoice == 3:
+            os.system('cls')
+            quit()
+    else:
+        print("1 - New Game")
+        print("2 - Quit")
+        userChoice = dialogue.choice(2)
+        if userChoice == 1:
+            os.system('cls')
+            gameState()
+        elif userChoice == 2:
+            os.system('cls')
+            quit()
+
+
+def prologue():
+    dialogue.dialoguePrint(("",))
+    gameState()   
+
 
 def kitchen():
     kitchen = ["Kitchen", ["Analyze Body", "Investigate Blood Dripping From LG Smart Refrigerator", "Inspect Broken Window", "Check Leaky Faucet", "Search Opened Drawer"]]
@@ -266,6 +306,10 @@ def bathroom():
                 playerStats['inventory'].append(poop)
 
 
+def epilogue():
+    pass 
+
+
 def chooseLoc():
     locations = ('kitchen', 'bathroom', 'living room')
     print('Where would you like to move to?')
@@ -287,5 +331,6 @@ def gameState():
             livingRoom()
             chooseLoc()
 
-gameState()
-#checkClues()
+
+titleScreen()
+
