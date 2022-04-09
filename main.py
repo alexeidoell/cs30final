@@ -20,6 +20,7 @@ footprints = evidence.trueEvidence("Footprints In Bathroom")
 openWindow2 = evidence.trueEvidence('Revelation of Opened Window')
 shoes = evidence.normalEvidence("Spiffy Pair of Ferragamo Plain Toe Oxfords")
 poop = evidence.normalEvidence("Toilet Visit Remnants")
+phoneCall = evidence.trueEvidence("Last Phone Call With My Wife")
 
 playerStats = {'location' : 'kitchen', 'inventory' : []}
 if os.path.isfile('savefile.txt') and os.path.getsize('savefile.txt') > 0:
@@ -138,7 +139,7 @@ def choices(location):
 def titleScreen():
     userChoice = None
     while userChoice == None:
-        print("TITLE\n")
+        print("The Pyramid\n")
         if os.path.isfile('savefile.txt'):
             print("1 - New Game")
             print("2 - Load Game")
@@ -206,26 +207,30 @@ def kitchen():
                     quit()
         if option == 6:
             if fork not in playerStats['inventory']:
-                dialogue.dialoguePrint(('Your wife\'s dead body.', 'Killed within the last 10 minutes.', 'Her eye... where is it?', 'Jesus...', 'It\'s been stabbed with a fork...'))
+                dialogue.dialoguePrint(('It\'s...', 'Claudia.', 'Who could\'ve done such a thing...', 'Her eye... where is it?', 'Jesus...', 'It\'s been stabbed with a fork...'))
                 if wife not in playerStats['inventory']:
+                    dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -"))
                     playerStats['inventory'].append(wife)
             else:
                 dialogue.dialoguePrint(('Wait, I forgot to look at her chest.', 'What\'s all this blood?', 'A bullet hole from behind...', 'No conflict.', 'Looks like a murder...'))
                 if wife2 not in playerStats['inventory']:
+                    dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -"))
                     playerStats['inventory'].append(wife2)
         if option == 7:
             dialogue.dialoguePrint(('This fridge looks so gruesome.', 'What could these people have hidden in here to scare me?', 'Oh...', 'It\'s pomegranate juice.'))
         if option == 8:
-            dialogue.dialoguePrint(('The window is broken, but from the outside.', 'Looks like a burglary turned wrong.'))
+            dialogue.dialoguePrint(('The window is broken, but from the outside.', 'Was this a burglary gone horribly wrong?'))
             if brokenWindow not in playerStats['inventory']:
+                dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -"))
                 playerStats['inventory'].append(brokenWindow)
         if option == 9:
             dialogue.dialoguePrint(('He left the water on?', 'Nothing special.'))
         if option == 10:
-            dialogue.dialoguePrint(('Nothing missing from our cutlery except a fork.',))
+            dialogue.dialoguePrint(('Nothing\'s missing from our cutlery except a fork.',))
         if option == 11:
-            dialogue.dialoguePrint(('My wife\'s eye is stuck on a fork.', 'Looks like it was gouged out.', 'Doesn\'t seem like that was what killed her though.'))
+            dialogue.dialoguePrint(('My wife\'s eye is stuck on a fork.', 'Looks like it was gouged out.', 'What the fuck...', 'Doesn\'t seem like that was what killed her though.'))
             if fork not in playerStats['inventory']:
+                dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -"))
                 playerStats['inventory'].append(fork)        
 
 
@@ -248,12 +253,29 @@ def livingRoom():
         if option == 4:
             dialogue.dialoguePrint(('You write your thoughts down in your journal.',))
             saveGame()
+        if option == 5:
+            dialogue.dialoguePrint(('Are you sure you would like to quit? (You will lose any unsaved progress)',))
+            userChoice = None
+            while userChoice == None:
+                print('1 - Yes')
+                print('2 - No')
+                userChoice = dialogue.choice(2)
+                if userChoice == 1:
+                    os.system('cls')
+                    quit()
         if option == 6:
-            dialogue.dialoguePrint(("A burglary, but they didn't steal the TV?",))
+            dialogue.dialoguePrint(("The TV's still here.",))
+            if brokenWindow in playerStats['inventory']:
+                dialogue.dialoguePrint(("Wait...", "If it really was a burglary, wouldn't they have taken the TV?",))
+            dialogue.dialoguePrint(("Odd...",))
         if option == 7:
             dialogue.dialoguePrint(("Nothing weird under the couch.",))
         if option == 8:
-            dialogue.dialoguePrint(("The fire's on...", "She did say it was cold."))
+            dialogue.dialoguePrint(("The fire's on...", "She did say it was cold.",))
+            if phoneCall not in playerStats['inventory']:
+                dialogue.dialoguePrint(( "Wait...", "The phone call!"))
+                dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -"))
+                playerStats['inventory'].append(phoneCall)
         if option == 9:
             count = 0
             for item in playerStats['inventory']:
@@ -262,7 +284,7 @@ def livingRoom():
             if count != 5:
                 dialogue.dialoguePrint((""))
             else:
-                dialogue.dialoguePrint((""))
+                epilogue()
 
             
         os.system('cls')
@@ -287,22 +309,36 @@ def bathroom():
         if option == 4:
             dialogue.dialoguePrint(('You write your thoughts down in your journal.',))
             saveGame()
+        if option == 5:
+            dialogue.dialoguePrint(('Are you sure you would like to quit? (You will lose any unsaved progress)',))
+            userChoice = None
+            while userChoice == None:
+                print('1 - Yes')
+                print('2 - No')
+                userChoice = dialogue.choice(2)
+                if userChoice == 1:
+                    os.system('cls')
+                    quit()
         if option == 6:
             if shoes not in playerStats['inventory']:
                 dialogue.dialoguePrint((""))
                 if openWindow not in playerStats['inventory']:
+                    dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -"))
                     playerStats['inventory'].append(openWindow)
             else:
                 dialogue.dialoguePrint((""))
                 if openWindow2 in playerStats['inventory']:
+                    dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -"))
                     playerStats['inventory'].append(openWindow2)
         if option == 7:
             dialogue.dialoguePrint(("There's a pair of Ferragamo Plain Toe Oxfords laying in the bathtub...", "Immaculately placed.", "No scuffs, waxed to perfection.", "I can see my reflection in the shoes.", "Man, I should save up for my own pair.", "Wouldn't be as perfectly kept, but still...", "I just can't stop appreciating these shoes.", "You can really tell this guy cares about his appearance.", "I should ask him/her about them.", "I wonder if he has a nice suit too.", "I can't wait to meet this guy.", "Seems like a put together, well dressed guy.", "I should show my wife these.", "Oh..."))
             if shoes not in playerStats['inventory']:
+                dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -"))
                 playerStats['inventory'].append(shoes)
         if option == 8:
             dialogue.dialoguePrint(("Someone forgot to flush!",))
             if poop not in playerStats['inventory']:
+                dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -"))
                 playerStats['inventory'].append(poop)
 
 
