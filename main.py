@@ -6,8 +6,6 @@ import os
 import PIL
 import matplotlib.pyplot as plt
 import json
-
-from numpy import save
 import jsonpickle
 import evidence
 import dialogue
@@ -138,34 +136,36 @@ def choices(location):
     
 
 def titleScreen():
-    print("TITLE\n")
-    if os.path.isfile('savefile.txt'):
-        print("1 - New Game")
-        print("2 - Load Game")
-        print("3 - Quit")
-        userChoice = dialogue.choice(3)
-        if userChoice == 1:
-            os.system('cls')
-            clearSave()
-            playerStats['location'] = 'kitchen'
-            playerStats['inventory'].clear()
-            prologue()
-        elif userChoice == 2:
-            os.system('cls')
-            gameState()
-        elif userChoice == 3:
-            os.system('cls')
-            quit()
-    else:
-        print("1 - New Game")
-        print("2 - Quit")
-        userChoice = dialogue.choice(2)
-        if userChoice == 1:
-            os.system('cls')
-            gameState()
-        elif userChoice == 2:
-            os.system('cls')
-            quit()
+    userChoice = None
+    while userChoice == None:
+        print("TITLE\n")
+        if os.path.isfile('savefile.txt'):
+            print("1 - New Game")
+            print("2 - Load Game")
+            print("3 - Quit")
+            userChoice = dialogue.choice(3)
+            if userChoice == 1:
+                os.system('cls')
+                clearSave()
+                playerStats['location'] = 'kitchen'
+                playerStats['inventory'].clear()
+                prologue()
+            elif userChoice == 2:
+                os.system('cls')
+                gameState()
+            elif userChoice == 3:
+                os.system('cls')
+                quit()
+        else:
+            print("1 - New Game")
+            print("2 - Quit")
+            userChoice = dialogue.choice(2)
+            if userChoice == 1:
+                os.system('cls')
+                gameState()
+            elif userChoice == 2:
+                os.system('cls')
+                quit()
 
 
 def prologue():
@@ -196,8 +196,8 @@ def kitchen():
             saveGame()
         if option == 5:
             dialogue.dialoguePrint(('Are you sure you would like to quit? (You will lose any unsaved progress)',))
-            userChoice = False
-            while userChoice == False:
+            userChoice = None
+            while userChoice == None:
                 print('1 - Yes')
                 print('2 - No')
                 userChoice = dialogue.choice(2)
@@ -249,11 +249,11 @@ def livingRoom():
             dialogue.dialoguePrint(('You write your thoughts down in your journal.',))
             saveGame()
         if option == 6:
-            dialogue.dialoguePrint(("",))
+            dialogue.dialoguePrint(("A burglary, but they didn't steal the TV?",))
         if option == 7:
-            dialogue.dialoguePrint(("",))
+            dialogue.dialoguePrint(("Nothing weird under the couch.",))
         if option == 8:
-            dialogue.dialoguePrint(("",))
+            dialogue.dialoguePrint(("The fire's on...", "She did say it was cold."))
         if option == 9:
             count = 0
             for item in playerStats['inventory']:
