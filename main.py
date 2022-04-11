@@ -167,7 +167,7 @@ def titleScreen():
                 # Sets up a blank slate save file in the starter position of the kitchen, with no evidence 
                 playerStats['location'] = 'kitchen'
                 playerStats['inventory'].clear()
-                prologue()
+                
             elif userChoice == 2:
                 os.system('cls')
                 gameState()
@@ -180,14 +180,14 @@ def titleScreen():
             userChoice = dialogue.choice(2)
             if userChoice == 1:
                 os.system('cls')
-                gameState()
+                prologue()
             elif userChoice == 2:
                 os.system('cls')
                 quit()
 
 
 def prologue():
-    dialogue.dialoguePrint(("",))
+    dialogue.dialoguePrint(("- THE PRECINCT -\nTIME: 10:45 PM","Jesus, what a long day at work.", "I could not be more tired.", "I better pack up.", "Can't wait to get home and crack open a cold beer.", "sigh...", "This case has been getting nowhere.", "Multiple homocides within the last 2 weeks, all suspected to have been done by the same person.", "Who the hell uses utensils to murder someone?!?!!??", "Whatever it is, they must be sending a message of some sort.", "Not like it matters much to me anyways, cases like this always go cold, no matter the detective.", "...", "Shit, where the hell did I put my keys?", "Oh.", "*car starts*", "It sure as hell is rainy outside.", "Must be the deceased mourning their lost souls...", "Welp, better listen to my wife and drive safely for once.", "8 MINUTES LATER", "*phone rings*", "Huh, its the wife. Better let her know that I'm already on my way home.", '"Hey honey, where are you? It\'s pouring cats and dogs outside and it\'s really late."', '"Sorry sweetie, I didn\'t expect to get held up this late. I\'m on my way home right now, I\'ll be there soon."', '"Okay, I was just worried. I had the window open earlier to feel the nice breeze but I started to get cold. I felt too lazy to close it though but then it began raining and I was forced to get up haha."', '"Its really weird though, I\'ve been hearing these stranges noises all night. It mostly sounds like rustling leaves but there is also the occasional scratching sort of noise."', '"I\'m sure it\'s nothing sweetie. It\'s probably just our neighbour walking their dog or something. If it gives you any comfort, I\'m around 3 minutes away. I\'ll be there soon."'))
     gameState()   
 
 
@@ -308,8 +308,8 @@ def livingRoom():
             for item in playerStats['inventory']:
                 if item.type == 'true':
                     count += 1
-            if count != 5:
-                dialogue.dialoguePrint(("What the hell is this pyramid they just left here..."))
+            if count != 6:
+                dialogue.dialoguePrint(("What the hell is this pyramid?", "They just left it here..."))
             else:
                 epilogue()
 
