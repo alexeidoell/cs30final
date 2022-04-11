@@ -9,7 +9,7 @@ class Evidence(object):
     '''
     Evidence objects stored with names, types, and descriptions
     Names are used to open description files
-    types are given through inheritence to other objects that simply init as evidence with certain types
+    types are given through inheritence to other objects that simply init as Evidence with certain types
     '''
     def __init__(self, name ='', type=''):
         self.name = name
@@ -37,14 +37,14 @@ class Evidence(object):
 
 class trueEvidence(Evidence):
     '''
-    Just evidence but type = 'true'
+    Just Evidence but type = 'true'
     '''
     def __init__(self, name=''):
         Evidence.__init__(self, name, 'true')
 
 class normalEvidence(Evidence):
     '''
-    Just evidence but type = 'normal'
+    Just Evidence but type = 'normal'
     '''
     def __init__(self, name=''):
         Evidence.__init__(self, name, 'normal')
