@@ -167,7 +167,7 @@ def titleScreen():
                 # Sets up a blank slate save file in the starter position of the kitchen, with no evidence 
                 playerStats['location'] = 'kitchen'
                 playerStats['inventory'].clear()
-                
+                prologue()
             elif userChoice == 2:
                 os.system('cls')
                 gameState()
