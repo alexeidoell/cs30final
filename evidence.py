@@ -7,7 +7,9 @@ import dialogue
 
 class Evidence(object):
     '''
-    Current plan is have folder with item descriptions txt files
+    Evidence objects stored with names, types, and descriptions
+    Names are used to open description files
+    types are given through inheritence to other objects that simply init as evidence with certain types
     '''
     def __init__(self, name ='', type=''):
         self.name = name
@@ -22,22 +24,27 @@ class Evidence(object):
         dialogue.dialoguePrint(self.desc)
 
     def __eq__(self, other): 
+        # We need this implemented in order to properly compare save data evidence to newly instantiated evidence
+        # Without this, evidence stored in the player's inventory after it's loaded in will be considered different evidence to newly instantiated evidence
+        # This is because they have different positions/associations within memory, which makes them abstractly equal but strictly equal
+        # This method an equality comparison return True if even the name attributes are the same
+
         if not isinstance(other, Evidence):
             # don't attempt to compare against unrelated types
             return NotImplemented
 
-        return self.name == other.name and self.type == other.type and self.desc == self.desc
+        return self.name == other.name
 
 class trueEvidence(Evidence):
     '''
-
+    Just evidence but type = 'true'
     '''
     def __init__(self, name=''):
         Evidence.__init__(self, name, 'true')
 
 class normalEvidence(Evidence):
     '''
-
+    Just evidence but type = 'normal'
     '''
     def __init__(self, name=''):
         Evidence.__init__(self, name, 'normal')

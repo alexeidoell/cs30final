@@ -12,7 +12,7 @@ def dialoguePrint(dialogueList):
     os.system('cls')
 
 
-    # dialogue is stored in tuples. in order to play out the scene, it iterates through the list of lines
+    # dialogue is stored in tuples/lists. in order to play out the scene, it iterates through the list of lines
     for i in dialogueList:
 
 
