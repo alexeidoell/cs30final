@@ -10,7 +10,7 @@ import jsonpickle
 import evidence
 import dialogue
 
-
+# Instantiating our pieces of evidence
 fork = evidence.trueEvidence('Fork')
 wife = evidence.normalEvidence('Wife\'s Body')
 brokenWindow = evidence.trueEvidence('Broken Window')
@@ -24,10 +24,15 @@ phoneCall = evidence.trueEvidence("Last Phone Call With My Wife")
 
 playerStats = {'location' : 'kitchen', 'inventory' : []}
 if os.path.isfile('savefile.txt') and os.path.getsize('savefile.txt') > 0:
+    # When game is opened, save file is automatically opened and loaded if it exists
     with open('savefile.txt') as f:
+        # Needs to have jsonpickle decode it after json loads it in order to convert it back into an actual proper dictionary
+
         playerStats = jsonpickle.decode(json.load(f))
 
 def sort(initialList):
+    # Other part of mergesort function
+
     mid = len(initialList) // 2
     leftList = initialList[:mid]
     rightList = initialList[mid:]
@@ -37,6 +42,8 @@ def sort(initialList):
     return sortedList
 
 def merge(list1, list2):
+    # Normal merge sort repurposed to work by checking name attribute
+
     mergedList = []
     while len(list1) != 0 and len(list2) != 0:
         if list1[0].name < list2[0].name:
@@ -57,6 +64,8 @@ def merge(list1, list2):
     return mergedList
 
 def binarySearch(name, sortedList):
+    # Repurposed binary search for checking name attribute
+
     low = 0
     high = len(sortedList) - 1
     while low <= high:
@@ -111,28 +120,32 @@ def checkClues():
 
 def saveGame():
     save = jsonpickle.encode(playerStats)
+    # Uses jsonpickle and json to encode our player stats dictionary
+    # Without jsonpickle, json can't properly dump complicated structures like objects
+
     with open('savefile.txt', 'w') as f:
        json.dump(save, f)
 
 
 def clearSave():
+    # Simply deletes the save file
     if os.path.isfile('savefile.txt'):
         os.remove('savefile.txt')
-    else:
-        dialogue.dialoguePrint(('Your journal is empty',))
 
 
 def choices(location):
-    # location could be list with attributes of the location (choices available, name of file for image, etc.)
+    # Location is a list with options (things to investigate in the scene)
+    # choices() prints some general actions, then location specifics
     print('1 - Check Location')
     print('2 - Check Clues')
     print('3 - Leave The Area')
     print('4 - Write In Your Journal (Save)')
     print('5 - Take A Break (Quit)')
+
     for i in range(len(location[1])):
         print(str(i + 6) + ' - ' + location[1][i])
+    
     choice = dialogue.choice(len(location[1]) + 6)
-
     return choice
     
 
@@ -141,6 +154,8 @@ def titleScreen():
     while userChoice == None:
         print("The Pyramid\n")
         if os.path.isfile('savefile.txt'):
+            # Checks for if a savefile is present, and that determines whether or not the option 'load game' is printed
+
             print("1 - New Game")
             print("2 - Load Game")
             print("3 - Quit")
@@ -148,6 +163,8 @@ def titleScreen():
             if userChoice == 1:
                 os.system('cls')
                 clearSave()
+                
+                # Sets up a blank slate save file in the starter position of the kitchen, with no evidence 
                 playerStats['location'] = 'kitchen'
                 playerStats['inventory'].clear()
                 prologue()
@@ -172,6 +189,16 @@ def titleScreen():
 def prologue():
     dialogue.dialoguePrint(("",))
     gameState()   
+
+
+'''
+Below, our 'location' functions are written. They all work the same way, basically having a list with options to choose from by the player, and then checking all the possible choices.
+First few are generic common tasks like saving, checking an image of the location, moving to another location, or quitting.
+Beyond that, there is unique text and evidence, but the overall structure is the same for almost every action.
+Some will check for other pieces of evidence and give you new actions or new dialogue/evidence, an example of this is getting the option to check the fork, which then gives you new dialogue when checking the body.
+The reason we have the generic options essentially copy and pasted between each function is that we believed it worked better with the implementation of our choices() function, and we wanted to keep choices and results separate.
+'''
+
 
 
 def kitchen():
@@ -282,7 +309,7 @@ def livingRoom():
                 if item.type == 'true':
                     count += 1
             if count != 5:
-                dialogue.dialoguePrint((""))
+                dialogue.dialoguePrint(("What the hell is this pyramid they just left here..."))
             else:
                 epilogue()
 
@@ -347,6 +374,7 @@ def epilogue():
 
 
 def chooseLoc():
+    # This function just gives you choices of all the locations to pick from, it's the least complicated part of the switching locations process
     locations = ('kitchen', 'bathroom', 'living room')
     print('Where would you like to move to?')
     for i in range(len(locations)):
@@ -355,6 +383,8 @@ def chooseLoc():
 
 
 def gameState():
+    # Loops through locations until an endgame flag is triggered and the player is removed from the loop (epilogue() function)
+    # After each location it runs the chooseLoc() function in order to change the players current location, then the loop restarts with the new location
     while True:
         os.system('cls')
         if playerStats['location'] == 'kitchen':
