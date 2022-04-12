@@ -78,9 +78,12 @@ def binarySearch(name, sortedList):
     return None
 
 def picture(image):
+    # This function standardizes the setup so that plt.figure() does not need to be written before every single image
+
     plt.figure(figsize=(20, 10))
     plt.imshow(image)
     plt.show()
+
 
 def checkClues():
     os.system('cls')
@@ -208,7 +211,6 @@ The reason we have the generic options essentially copy and pasted between each 
 '''
 
 
-
 def kitchen():
     kitchen = ["Kitchen", ["Analyze Body", "Investigate Blood Dripping From LG Smart Refrigerator", "Inspect Broken Window", "Check Leaky Faucet", "Search Opened Drawer"]]
     locationLoop = True
@@ -220,10 +222,8 @@ def kitchen():
         option = choices(kitchen)
         os.system('cls')
         if option == 1:
-             
             location = PIL.Image.open('.\kitchen.png')
-            plt.imshow(location)
-            plt.show()
+            picture(location)
         if option == 2:
             checkClues()
         if option == 3:
@@ -291,7 +291,6 @@ def livingRoom():
         option = choices(livingRoom)
         os.system('cls')
         if option == 1:
-             
             location = PIL.Image.open('.\livingRoom.png')
             picture(location)
         if option == 2:
@@ -357,7 +356,6 @@ def bathroom():
         option = choices(bathroom)
         os.system('cls')
         if option == 1:
-             
             location = PIL.Image.open('./bathroom.png')
             picture(location)
         if option == 2:
@@ -409,14 +407,17 @@ def bathroom():
 
 
 def epilogue():
-    #dialogue.dialoguePrint(('This pyramid...', 'There\'s gotta be something bigger going on here.', 'What if the window in the kitchen was a red herring?', 'The shoes.', 'The open window.', 'Nothing stolen.', 'And this damn pyramid.', 'This isn\'t the work of one guy.', 'Who planned all this?', 'MASAKA!!!', 'I\'ve figured out the case!', 'Shit, what\'s that sound behind me?', 'Who\'s there!?', '"Hmph."'))
+    # final dialogue
+    dialogue.dialoguePrint(('This pyramid...', 'There\'s gotta be something bigger going on here.', 'What if the window in the kitchen was a red herring?', 'The shoes.', 'The open window.', 'Nothing stolen.', 'And this damn pyramid.', 'This isn\'t the work of one guy.', 'Who planned all this?', 'MASAKA!!!', 'I\'ve figured out the case!', 'Shit, what\'s that sound behind me?', 'Who\'s there!?', '"Hmph."'))
+    
+    # will display ending images
     for i in range(1, 13):
-         
-        location = PIL.Image.open('.\epilogue' + str(i) + '.png')
-        picture(location)
-     
-    location = PIL.Image.open('developers.png')
-    picture(location)
+        ending = PIL.Image.open('.\epilogue' + str(i) + '.png')
+        picture(ending)
+    
+    # ending credits
+    credit = PIL.Image.open('developers.png')
+    picture(credit)
 
 
 def chooseLoc():
@@ -450,5 +451,6 @@ def gameState():
             livingRoom()
             chooseLoc()
 
-#titleScreen()
-epilogue()
+
+titleScreen()
+
