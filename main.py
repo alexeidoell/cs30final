@@ -21,7 +21,7 @@ shoes = evidence.normalEvidence("Spiffy Pair of Ferragamo Plain Toe Oxfords")
 poop = evidence.normalEvidence("Toilet Visit Remnants")
 phoneCall = evidence.trueEvidence("Last Phone Call With My Wife")
 
-playerStats = {'location' : 'kitchen', 'inventory' : []}
+playerStats = {'location' : 'Kitchen', 'inventory' : []}
 if os.path.isfile('savefile.txt') and os.path.getsize('savefile.txt') > 0:
     # When game is opened, save file is automatically opened and loaded if it exists
     with open('savefile.txt') as f:
@@ -418,6 +418,7 @@ def epilogue():
     # ending credits
     credit = PIL.Image.open('.\scenes\developers.png')
     picture(credit)
+    quit()
 
 
 def chooseLoc():
