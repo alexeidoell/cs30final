@@ -222,7 +222,7 @@ def kitchen():
         option = choices(kitchen)
         os.system('cls')
         if option == 1:
-            location = PIL.Image.open('.\kitchen.png')
+            location = PIL.Image.open('.\scenes\kitchen.png')
             picture(location)
         if option == 2:
             checkClues()
@@ -291,7 +291,7 @@ def livingRoom():
         option = choices(livingRoom)
         os.system('cls')
         if option == 1:
-            location = PIL.Image.open('.\livingRoom.png')
+            location = PIL.Image.open('.\scenes\livingRoom.png')
             picture(location)
         if option == 2:
             checkClues()
@@ -356,7 +356,7 @@ def bathroom():
         option = choices(bathroom)
         os.system('cls')
         if option == 1:
-            location = PIL.Image.open('./bathroom.png')
+            location = PIL.Image.open('./scenes/bathroom.png')
             picture(location)
         if option == 2:
             checkClues()
@@ -412,11 +412,11 @@ def epilogue():
     
     # will display ending images
     for i in range(1, 13):
-        ending = PIL.Image.open('.\epilogue' + str(i) + '.png')
+        ending = PIL.Image.open('.\scenes\epilogue' + str(i) + '.png')
         picture(ending)
     
     # ending credits
-    credit = PIL.Image.open('developers.png')
+    credit = PIL.Image.open('.\scenes\developers.png')
     picture(credit)
 
 
@@ -436,17 +436,17 @@ def gameState():
     while True:
         os.system('cls')
         if playerStats['location'] == 'Kitchen':
-            location = PIL.Image.open('.\kitchen.png')
+            location = PIL.Image.open('.\scenes\kitchen.png')
             picture(location)
             kitchen()
             chooseLoc()
         elif playerStats['location'] == 'Bathroom':
-            location = PIL.Image.open('./bathroom.png')
+            location = PIL.Image.open('./scenes/bathroom.png')
             picture(location)
             bathroom()
             chooseLoc()
         elif playerStats['location'] == 'Living Room':
-            location = PIL.Image.open('.\livingRoom.png')
+            location = PIL.Image.open('.\scenes\livingRoom.png')
             picture(location)
             livingRoom()
             chooseLoc()
