@@ -423,11 +423,15 @@ def epilogue():
 
 def chooseLoc():
     # This function just gives you choices of all the locations to pick from, it's the least complicated part of the switching locations process
-    locations = ('Kitchen', 'Bathroom', 'Living Room')
-    print('Where would you like to move to?')
-    for i in range(len(locations)):
-        print(str(i + 1) + ' - ' + locations[i])
-    playerStats['location'] = locations[dialogue.choice(len(locations)) - 1]
+    choice = None
+    while choice == None:
+        locations = ('Kitchen', 'Bathroom', 'Living Room')
+        print('Where would you like to move to?')
+        for i in range(len(locations)):
+            print(str(i + 1) + ' - ' + locations[i])
+        choice = dialogue.choice(len(locations))
+        os.system('cls')   
+    playerStats['location'] = locations[choice - 1]
 
 
 def gameState():
