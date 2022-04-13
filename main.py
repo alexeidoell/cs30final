@@ -385,7 +385,7 @@ def bathroom():
             if openWindow not in playerStats['inventory']:
                 dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -", ))
                 playerStats['inventory'].append(openWindow)
-            else:
+            if shoes in playerStats['inventory']:
                 dialogue.dialoguePrint(("He left his shoes here...", "He's still in the house.", "Where are you!?"))
                 if openWindow2 not in playerStats['inventory']:
                     dialogue.dialoguePrint(("- NEW EVIDENCE ACQUIRED -",))
