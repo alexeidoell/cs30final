@@ -141,7 +141,7 @@ def choices(location):
     for i in range(len(location[1])):
         print(str(i + 6) + ' - ' + location[1][i])
     
-    choice = dialogue.choice(len(location[1]) + 6)
+    choice = dialogue.choice(len(location[1]) + 5)
     return choice
     
 
